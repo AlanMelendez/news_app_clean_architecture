@@ -17,7 +17,7 @@ class ArticleRepositoryImpl extends ArticleRepository {
   Future<DataState<List<ArticleEntity>>> getNewsArticles() async {
     try {
       final result = await _newsApiService.getNewsArticles(
-        apiKey: DotEnv().env['API_KEY'] ?? '',
+        apiKey: dotenv.env['API_KEY'] ?? '',
         country: 'us',
         category: 'technology',
       );
