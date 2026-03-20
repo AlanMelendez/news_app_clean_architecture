@@ -2,6 +2,6 @@ abstract class RemoteArticlesEvent {
 
 }
 
-abstract class GetArticles extends RemoteArticlesEvent {
+ class GetArticles extends RemoteArticlesEvent {
 
 }
