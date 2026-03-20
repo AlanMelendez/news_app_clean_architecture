@@ -4,28 +4,37 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: ^3.10.7
+  sdk: ">=3.10.0 <4.0.0"
 
 dependencies:
-  cached_network_image: ^3.4.1
-  equatable: ^2.0.8
-  floor: ^1.4.2
   flutter:
     sdk: flutter
+  cached_network_image: ^3.4.1
+  equatable: ^2.0.8
   flutter_bloc: ^9.1.1
   flutter_dotenv: ^6.0.0
-  flutter_hooks: ^0.18.3
+  flutter_hooks: ^0.21.3+1
   get_it: ^9.2.1
   intl: ^0.20.2
+
+  # Networking
   retrofit: ^4.9.2
+  dio: ^5.6.0
+
+  # Local DB (Drift instead of Floor)
+  drift: ^2.18.0
+  drift_sqflite: 2.0.1
+  sqflite: ^2.3.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  retrofit_generator: ^8.2.1
-  floor_generator: ^1.2.0
-  build_runner: ^2.1.2
+
+  # Code generation
+  build_runner: ^2.8.0
+  retrofit_generator: ^10.2.3
+  drift_dev: ^2.18.0
 
 flutter:
   uses-material-design: true

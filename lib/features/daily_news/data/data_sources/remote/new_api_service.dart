@@ -1,12 +1,17 @@
-import 'package:retrofit/http.dart';
-import 'package:dio/dio.dart'; 
-// part 'new_api_service.dart';
 
-@RestApi(baseUrl: Envire )
+import 'package:news_app_clean_architecture/features/daily_news/data/models/articles.dart';
+import 'package:dio/dio.dart';
+import 'package:retrofit/retrofit.dart';
+part 'new_api_service.g.dart';
+
+@RestApi(baseUrl: 'https://newsapi.org/v2')
 abstract class NewsApiService {
-  
   factory NewsApiService(Dio dio) = _NewsApiService;
 
-
-
+  @GET('/top-headlines')
+  Future<HttpResponse<List<ArticleModel>>> getNewsArticles({
+    @Query('apiKey') String apiKey,
+    @Query('country') String country,
+    @Query('category') String category,
+  });
 }
