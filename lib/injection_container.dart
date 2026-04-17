@@ -9,7 +9,19 @@ import 'package:news_app_clean_architecture/features/daily_news/presentation/blo
 final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
-  sl.registerSingleton<Dio>(Dio());
+  final dio = Dio()
+    ..interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestBody: false,
+        requestHeader: false,
+        responseHeader: false,
+        responseBody: false,
+        error: true,
+      ),
+    );
+
+  sl.registerSingleton<Dio>(dio);
 
   //Dependecies
   sl.registerSingleton<NewsApiService>(NewsApiService(sl()));

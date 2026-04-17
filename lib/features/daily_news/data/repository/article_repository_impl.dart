@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app_clean_architecture/core/resources/data_state.dart';
 
 import 'package:news_app_clean_architecture/features/daily_news/domain/entities/article.dart';
@@ -18,8 +17,9 @@ class ArticleRepositoryImpl extends ArticleRepository {
     try {
       final result = await _newsApiService.getNewsArticles(
         apiKey: '0551f9e096144a77b8d45b87a677d83f',
-        country: 'us',
-        category: 'general',
+        query: 'tesla',
+        from: '2026-02-20',
+        sortBy: 'publishedAt',
       );
 
       if (result.response.statusCode == HttpStatus.ok) {
@@ -34,6 +34,21 @@ class ArticleRepositoryImpl extends ArticleRepository {
         );
       }
     } on DioException catch (e) {
+      if (e.error is SocketException) {
+        final uri = e.requestOptions.uri;
+        final socketError = e.error as SocketException;
+
+        return DataFailed(
+          DioException(
+            requestOptions: e.requestOptions,
+            type: DioExceptionType.connectionError,
+            error:
+                'DNS lookup failed for host "${uri.host}" while requesting "${uri.toString()}". '
+                'Check emulator network/DNS settings. Original: ${socketError.message}',
+          ),
+        );
+      }
+
       return DataFailed(e);
     }
   }
